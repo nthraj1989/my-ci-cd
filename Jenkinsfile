@@ -5,6 +5,14 @@ pipeline{
         maven "maven"
     }
 
+    environment{
+               APP_NAME = "spring-ci-cd"
+               RELEASE_NO= "1.0.0"
+               DOCKER_USER= "niitrajnish"
+               IMAGE_NAME= "${DOCKER_USER}"+"/"+"${APP_NAME}"
+               IMAGE_TAG= "${RELEASE_NO}-${BUILD_NUMBER}"
+        }
+
 
     stages{
 
@@ -25,9 +33,20 @@ pipeline{
         stage("Build Image"){
             steps{
                 script{
-                    bat 'docker build -t spring-ci-cd:1.0 .'
+                    bat 'docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .'
                 }
             }
+        }
+
+        stage('push image to hub'){
+           steps{
+              script{
+                withCredentials([string(credentialsId: 'docker-cred', variable: 'docker-cred')]) {
+                  sh 'docker login -u niitrajnish -p ${docker-cred}'
+                  sh 'docker push ${IMAGE_NAME}:${IMAGE_TAG}'
+                }
+              }
+           }
         }
     }
 }
