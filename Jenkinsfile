@@ -29,5 +29,12 @@ pipeline{
                 }
             }
         }
+        stage('run docker image') {
+            steps {
+                script{
+                    bat 'docker run -d spring-ci-cd:1.0'
+                }
+            }
+         }
     }
 }
