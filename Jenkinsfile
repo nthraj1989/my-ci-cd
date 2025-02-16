@@ -42,8 +42,8 @@ pipeline{
            steps{
               script{
                 withCredentials([string(credentialsId: 'docker-cred', variable: 'docker-cred')]) {
-                  sh 'docker login -u niitrajnish -p ${docker-cred}'
-                  sh 'docker push niitrajnish/spring-ci-cd:1.0'
+                  bat 'docker login -u niitrajnish -p ${docker-cred}'
+                  bat 'docker push niitrajnish/spring-ci-cd:1.0'
                 }
               }
            }
