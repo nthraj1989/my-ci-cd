@@ -36,6 +36,7 @@ pipeline{
                 }
             }
         }
+        
         stage('push image to hub'){
            steps{
               script{
@@ -46,5 +47,6 @@ pipeline{
               }
            }
         }
+        
     }
 }
