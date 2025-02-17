@@ -42,15 +42,22 @@ pipeline{
             }
         }
 
-        stage('push image to hub'){
+        stage('login to docker hub'){
            steps{
               script{
-                withCredentials([usernamePassword(credentialsId: 'docker-cred', passwordVariable: 'docker-password', usernameVariable: 'docker-username')]) {
-                  bat 'docker login -u niitrajnish -p ${passwordVariable}'
-                  bat 'docker push niitrajnish/spring-ci-cd:1.0'
+                  bat 'docker login -u $DOCKERHUB_CREDENTIAL_USR --password-stdin'
                 }
               }
            }
+
+        stage('push image to docker hub'){
+           steps{
+              script{
+                  bat 'docker push niitrajnish/spring-ci-cd:1.0'
+                }
+           }
+        }
+
         }
     }
 }
