@@ -13,11 +13,6 @@ pipeline{
 //                IMAGE_TAG= "${RELEASE_NO}-${BUILD_NUMBER}"
 //         }
 
-        environment{
-        DOCKERHUB_CREDENTIAL = credentials('docker-cred')
-        }
-
-
     stages{
 
         stage("SCM checkout"){
@@ -40,17 +35,6 @@ pipeline{
                     bat 'docker build -t niitrajnish/spring-ci-cd:1.0 .'
                 }
             }
-        }
-
-        stage('push image to hub'){
-           steps{
-              script{
-                withCredentials([usernamePassword(credentialsId: 'docker-cred', passwordVariable: 'docker-password', usernameVariable: 'docker-username')]) {
-                  bat 'docker login -u ${usernameVariable} -p ${passwordVariable}'
-                  bat 'docker push niitrajnish/spring-ci-cd:1.0'
-                }
-              }
-           }
         }
     }
 }
