@@ -5,14 +5,6 @@ pipeline{
         maven "maven"
     }
 
-//     environment{
-//                APP_NAME = "spring-ci-cd"
-//                RELEASE_NO= "1.0.0"
-//                DOCKER_USER= "niitrajnish"
-//                IMAGE_NAME= "${DOCKER_USER}"+"/"+"${APP_NAME}"
-//                IMAGE_TAG= "${RELEASE_NO}-${BUILD_NUMBER}"
-//         }
-
     stages{
 
         stage("SCM checkout"){
