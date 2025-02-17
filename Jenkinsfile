@@ -47,8 +47,8 @@ pipeline{
               script{
                   bat 'docker login -u $DOCKERHUB_CREDENTIAL_USR --password-stdin'
                 }
-              }
            }
+        }
 
         stage('push image to docker hub'){
            steps{
