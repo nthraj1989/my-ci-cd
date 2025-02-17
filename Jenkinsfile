@@ -13,6 +13,10 @@ pipeline{
 //                IMAGE_TAG= "${RELEASE_NO}-${BUILD_NUMBER}"
 //         }
 
+        environment{
+        DOCKERHUB_CREDENTIAL = credentials('docker-cred')
+        }
+
 
     stages{
 
@@ -41,8 +45,8 @@ pipeline{
         stage('push image to hub'){
            steps{
               script{
-                withCredentials([string(credentialsId: 'docker-cred', variable: 'docker-cred')]) {
-                  bat 'docker login -u niitrajnish -p ${docker-cred}'
+                withCredentials([usernamePassword(credentialsId: 'docker-cred', passwordVariable: 'docker-password', usernameVariable: 'docker-username')]) {
+                  bat 'docker login -u niitrajnish -p ${passwordVariable}'
                   bat 'docker push niitrajnish/spring-ci-cd:1.0'
                 }
               }
