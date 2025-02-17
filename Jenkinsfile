@@ -36,5 +36,15 @@ pipeline{
                 }
             }
         }
+        stage('push image to hub'){
+           steps{
+              script{
+                 withCredentials([string(credentialsId: 'docker-cred', variable: 'dc')]) {
+                  bat 'docker login -u niitrajnish -p ${dc}'
+                  bat 'docker push niitrajnish/spring-ci-cd:1.0'
+                  }
+              }
+           }
+        }
     }
 }
