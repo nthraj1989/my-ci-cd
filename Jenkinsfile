@@ -32,7 +32,7 @@ pipeline{
         stage('push image to hub'){
            steps{
               script{
-                 withCredentials([string(credentialsId: 'niitrajnish', variable: 'docker-cred')]) {
+                 withCredentials([usernameColonPassword(credentialsId: 'niitrajnish', variable: 'docker-cred')]) {
                   bat 'docker login -u niitrajnish -p ${docker-cred}'
                   bat 'docker push niitrajnish/spring-ci-cd:1.0'
                   }
