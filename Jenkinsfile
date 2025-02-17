@@ -33,7 +33,7 @@ pipeline{
            steps{
               script{
                  withCredentials([usernamePassword(credentialsId: 'niitrajnish', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-                  bat 'docker login -u "$USERNAME" -p "$PASSWORD"'
+                  bat 'docker login -u ${USERNAME} -p ${PASSWORD}'
                   bat 'docker push niitrajnish/spring-ci-cd:1.0'
                   }
               }
